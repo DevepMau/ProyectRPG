@@ -13,20 +13,28 @@ import entidades.Jugador;
 public class PanelDeJuego extends JPanel implements Runnable {
 
 	private static final long serialVersionUID = 1L;
+	
 	// CONFIGURACIÓN DE PANTALLA
-	final int tamañoOriginalDeTile = 16;
+	final int tamañoOriginalDeBaldosa = 16;
 	final int escala = 3;
 
-	public final int tamañoDeTile = tamañoOriginalDeTile * escala;
+	public final int tamañoDeBaldosa = tamañoOriginalDeBaldosa * escala;
 	public final int maxColDePantalla = 16;
 	public final int maxFilaDePantalla = 12;
-	public final int anchoDePantalla = tamañoDeTile * maxColDePantalla;
-	public final int altoDePantalla = tamañoDeTile * maxFilaDePantalla;
+	public final int anchoDePantalla = tamañoDeBaldosa * maxColDePantalla;
+	public final int altoDePantalla = tamañoDeBaldosa * maxFilaDePantalla;
+	
+	//CONFIGURACION DEL MUNDO
+	public final int maxColDeMundo = 16;
+	public final int maxFilaDeMundo = 12;
+	public final int anchoMundo = tamañoDeBaldosa * maxColDeMundo;
+	public final int altoMundo = tamañoDeBaldosa * maxFilaDeMundo;
 
 	GestorDeBaldosas gestorDeTiles = new GestorDeBaldosas(this);
 	Teclado teclado = new Teclado();
 	Thread hiloDeJuego;
-	Jugador jugador = new Jugador(this, teclado);
+	
+	public Jugador jugador = new Jugador(this, teclado);
 
 	// FPS
 	int FPS = 60;

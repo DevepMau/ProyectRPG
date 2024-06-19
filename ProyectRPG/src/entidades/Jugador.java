@@ -1,6 +1,5 @@
 package entidades;
 
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -14,6 +13,8 @@ public class Jugador extends Entidad {
 
 	PanelDeJuego panelDeJuego;
 	Teclado teclado;
+	public final int xPantalla;
+	public final int yPantalla;
 
 	public Jugador(PanelDeJuego panelDeJuego, Teclado teclado) {
 
@@ -21,13 +22,17 @@ public class Jugador extends Entidad {
 		this.teclado = teclado;
 		setValoresPorDefecto();
 		obtenerImagenDelJugador();
+		
+		xPantalla = panelDeJuego.anchoDePantalla / 2 - (panelDeJuego.tamañoDeBaldosa/2);
+		yPantalla = panelDeJuego.altoDePantalla / 2 - ((panelDeJuego.tamañoDeBaldosa + (panelDeJuego.tamañoDeBaldosa/2)) /2);
+		
 
 	}
 
 	public void setValoresPorDefecto() {
 
-		x = 100;
-		y = 100;
+		xMundial = panelDeJuego.tamañoDeBaldosa * 5;
+		yMundial = panelDeJuego.tamañoDeBaldosa * 5;
 		velocidad = 3;
 		direccion = "abajo";
 	}
@@ -59,19 +64,19 @@ public class Jugador extends Entidad {
 
 			if(teclado.W == true) {
 				direccion = "arriba";
-				y -= velocidad;
+				yMundial -= velocidad;
 			}
 			if(teclado.S == true) {
 				direccion = "abajo";
-				y += velocidad;
+				yMundial += velocidad;
 			}
 			if(teclado.A == true) {
 				direccion = "izquierda";
-				x -= velocidad;
+				xMundial -= velocidad;
 			}
 			if(teclado.D == true) {
 				direccion = "derecha";
-				x += velocidad;
+				xMundial += velocidad;
 			}
 
 			contadorDeSprites++;
@@ -173,7 +178,7 @@ public class Jugador extends Entidad {
 			}
 			break;
 		}
-		g2.drawImage(imagen, x, y, panelDeJuego.tamañoDeTile, (panelDeJuego.tamañoDeTile + (panelDeJuego.tamañoDeTile/2)), null);
+		g2.drawImage(imagen, xPantalla, yPantalla, panelDeJuego.tamañoDeBaldosa, (panelDeJuego.tamañoDeBaldosa + (panelDeJuego.tamañoDeBaldosa/2)), null);
 
 
 	}

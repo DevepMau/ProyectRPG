@@ -14,13 +14,13 @@ public class GestorDeBaldosas {
 
 	PanelDeJuego panelDeJuego;
 	Baldosa[] baldosa;
-	int numMapaBaldosa[][];
+	int mapaDeBaldosas[][];
 
 	public GestorDeBaldosas(PanelDeJuego panelDeJuego) {
 
 		this.panelDeJuego = panelDeJuego;
 		baldosa = new Baldosa[10];
-		numMapaBaldosa = new int[panelDeJuego.maxColDePantalla][panelDeJuego.maxFilaDePantalla];
+		mapaDeBaldosas = new int[panelDeJuego.maxColDeMundo][panelDeJuego.maxFilaDeMundo];
 		obtenerImagenDeBaldosa();
 		cargarMapa("/mapas/mapa00.txt");
 	}
@@ -54,19 +54,19 @@ public class GestorDeBaldosas {
 			int col = 0;
 			int fil = 0;
 
-			while(col < panelDeJuego.maxColDePantalla && fil < panelDeJuego.maxFilaDePantalla) {
+			while(col < panelDeJuego.maxColDeMundo && fil < panelDeJuego.maxFilaDeMundo) {
 
 				String linea = br.readLine();
-
-				while(col < panelDeJuego.maxColDePantalla) {
+				
+				while(col < panelDeJuego.maxColDeMundo) {
 					String numeros[] = linea.split(" ");
 
 					int num = Integer.parseInt(numeros[col]);
 
-					numMapaBaldosa[col][fil] = num;
+					mapaDeBaldosas[col][fil] = num;
 					col++;
 				}
-				if(col == panelDeJuego.maxColDePantalla) {
+				if(col == panelDeJuego.maxColDeMundo) {
 					col = 0;
 					fil++;
 				}
@@ -81,24 +81,32 @@ public class GestorDeBaldosas {
 
 	public void dibujar(Graphics2D g2) {
 
-		int col = 0;
-		int fil = 0;
-		int x = 0;
-		int y = 0;
+		int colDeMundo = 0;
+		int filaDeMundo = 0;
 
-		while(col < panelDeJuego.maxColDePantalla && fil < panelDeJuego.maxFilaDePantalla) {
+		while(colDeMundo < panelDeJuego.maxColDeMundo && filaDeMundo < panelDeJuego.maxFilaDeMundo) {
 
-			int numBaldosa = numMapaBaldosa[col][fil];
+			int numeroDeBaldosa = mapaDeBaldosas[colDeMundo][filaDeMundo];
 
-			g2.drawImage(baldosa[numBaldosa].imagen, x, y, panelDeJuego.tamañoDeTile, panelDeJuego.tamañoDeTile, null);
-			col++;
-			x += panelDeJuego.tamañoDeTile;
+			int xMundo = colDeMundo * panelDeJuego.tamañoDeBaldosa;
+			int yMundo = filaDeMundo * panelDeJuego.tamañoDeBaldosa;
+			int xPantalla = xMundo - panelDeJuego.jugador.xMundial + panelDeJuego.jugador.xPantalla;
+			int yPantalla = yMundo - panelDeJuego.jugador.yMundial + panelDeJuego.jugador.yPantalla;
 
-			if(col == panelDeJuego.maxColDePantalla) {
-				col = 0;
-				x = 0;
-				fil++;
-				y += panelDeJuego.tamañoDeTile;
+			if(xMundo + panelDeJuego.tamañoDeBaldosa > panelDeJuego.jugador.xMundial - panelDeJuego.jugador.xPantalla &&
+			   xMundo - panelDeJuego.tamañoDeBaldosa < panelDeJuego.jugador.xMundial + panelDeJuego.jugador.xPantalla &&
+			   yMundo + panelDeJuego.tamañoDeBaldosa > panelDeJuego.jugador.yMundial - panelDeJuego.jugador.yPantalla &&
+			   yMundo - (panelDeJuego.tamañoDeBaldosa + (panelDeJuego.tamañoDeBaldosa/2)) < panelDeJuego.jugador.yMundial + panelDeJuego.jugador.yPantalla) {
+
+				g2.drawImage(baldosa[numeroDeBaldosa].imagen, xPantalla, yPantalla, panelDeJuego.tamañoDeBaldosa, panelDeJuego.tamañoDeBaldosa, null);
+
+			}
+
+			colDeMundo ++;
+
+			if(colDeMundo == panelDeJuego.maxColDeMundo) {
+				colDeMundo = 0;
+				filaDeMundo++;
 			}
 
 		}
