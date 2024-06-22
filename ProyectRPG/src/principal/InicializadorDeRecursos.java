@@ -15,6 +15,7 @@ public class InicializadorDeRecursos {
 		panelDeJuego.obj[0] = new OBJ_Llave();
 		panelDeJuego.obj[0].xMundo = 13 * panelDeJuego.tamañoDeBaldosa;
 		panelDeJuego.obj[0].yMundo = 6 * panelDeJuego.tamañoDeBaldosa;
+		panelDeJuego.obj[0].colision = true;
 
 
 	}

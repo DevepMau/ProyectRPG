@@ -10,7 +10,7 @@ public class ComprobadorDeColisiones {
 		this.panelDeJuego = panelDeJuego;
 	}
 
-	public void comprobarBaldosa(Entidad entidad) {
+	public void verificarBaldosa(Entidad entidad) {
 
 		int entidadIzquierdaX = entidad.xMundo + entidad.areaSolida.x;
 		int entidadDerechaX = entidad.xMundo + entidad.areaSolida.x + entidad.areaSolida.width;
@@ -77,5 +77,82 @@ public class ComprobadorDeColisiones {
 		}
 
 	}
+	
+	public int verificarObjeto(Entidad entidad, boolean jugador) {
+
+	    int indice = 999;
+
+	    for (int i = 0; i < panelDeJuego.obj.length; i++) {
+
+	        if (panelDeJuego.obj[i] != null) {
+
+	            // Obtener la posición del área sólida de la entidad
+	            entidad.areaSolida.x = entidad.xMundo + entidad.areaSolida.x;
+	            entidad.areaSolida.y = entidad.yMundo + entidad.areaSolida.y;
+	            // Obtener la posición del área sólida del objeto
+	            panelDeJuego.obj[i].areaSolida.x = panelDeJuego.obj[i].xMundo + panelDeJuego.obj[i].areaSolida.x;
+	            panelDeJuego.obj[i].areaSolida.y = panelDeJuego.obj[i].yMundo + panelDeJuego.obj[i].areaSolida.y;
+
+	            switch (entidad.direccion) {
+	                case "arriba":
+	                    entidad.areaSolida.y -= entidad.velocidad;
+	                    if (entidad.areaSolida.intersects(panelDeJuego.obj[i].areaSolida)) {
+	                        if (panelDeJuego.obj[i].colision == true) {
+	                            entidad.colisionActivada = true;
+	                        }
+	                        if (jugador == true) {
+	                            indice = i;
+	                        }
+	                    }
+	                    break;
+	                case "abajo":
+	                    entidad.areaSolida.y += entidad.velocidad;
+	                    if (entidad.areaSolida.intersects(panelDeJuego.obj[i].areaSolida)) {
+	                        if (panelDeJuego.obj[i].colision == true) {
+	                            entidad.colisionActivada = true;
+	                        }
+	                        if (jugador == true) {
+	                            indice = i;
+	                        }
+	                    }
+	                    break;
+	                case "izquierda":
+	                    entidad.areaSolida.x -= entidad.velocidad;
+	                    if (entidad.areaSolida.intersects(panelDeJuego.obj[i].areaSolida)) {
+	                        if (panelDeJuego.obj[i].colision == true) {
+	                            entidad.colisionActivada = true;
+	                        }
+	                        if (jugador == true) {
+	                            indice = i;
+	                        }
+	                    }
+	                    break;
+	                case "derecha":
+	                    entidad.areaSolida.x += entidad.velocidad;
+	                    if (entidad.areaSolida.intersects(panelDeJuego.obj[i].areaSolida)) {
+	                        if (panelDeJuego.obj[i].colision == true) {
+	                            entidad.colisionActivada = true;
+	                        }
+	                        if (jugador == true) {
+	                            indice = i;
+	                        }
+	                    }
+	                    break;
+	            }
+
+	            // Restaurar las posiciones predeterminadas del área sólida de la entidad y del objeto
+	            entidad.areaSolida.x = entidad.areaSolidaPredeterminadaX;
+	            entidad.areaSolida.y = entidad.areaSolidaPredeterminadaY;
+	            panelDeJuego.obj[i].areaSolida.x = panelDeJuego.obj[i].areaSolidaPredeterminadaX;
+	            panelDeJuego.obj[i].areaSolida.y = panelDeJuego.obj[i].areaSolidaPredeterminadaY;
+
+	        }
+
+	    }
+
+	    return indice;
+
+	}
+
 
 }

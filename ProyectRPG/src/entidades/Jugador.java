@@ -23,6 +23,8 @@ public class Jugador extends Entidad {
 		this.teclado = teclado;
 		
 		areaSolida = new Rectangle(8, 32, 32, 40);
+		areaSolidaPredeterminadaX = areaSolida.x;
+		areaSolidaPredeterminadaY = areaSolida.y;
 		
 		setValoresPorDefecto();
 		obtenerImagenDelJugador();
@@ -79,12 +81,16 @@ public class Jugador extends Entidad {
 				direccion = "derecha";
 			}
 			
-			//CHECK TILE COLLISION
+			//COMPROBAR COLISIONES CON LAS BALDOSAS
 			colisionActivada = false;
-			panelDeJuego.comprobadorDeColisiones.comprobarBaldosa(this);;
+			panelDeJuego.comprobadorDeColisiones.verificarBaldosa(this);
+			
+			//COMPROBAR COLISIONES CON OBJETOS
+			int objIndex = panelDeJuego.comprobadorDeColisiones.verificarObjeto(this, true);
+			recogerObjeto(objIndex);
 
 			
-			//IF COLLISION IS FALSE, PLAYER CAN MOVE
+			//SI LA COLISION ESTA DESACTIVADA, EL JUGADOR SE PODRA MOVER
 			if(colisionActivada == false) {
 				
 				switch(direccion) {
@@ -131,6 +137,23 @@ public class Jugador extends Entidad {
 		}
 
 	}
+	
+	public void recogerObjeto(int i) {
+
+	    if (i != 999) {
+
+	        String nombreObjeto = panelDeJuego.obj[i].nombre;
+
+	        switch (nombreObjeto) {
+	            case "Llave":
+	            	if(panelDeJuego.obj[i].colision == true) {
+	            		panelDeJuego.obj[i] = null;
+	            	} 
+	                break;
+	        }
+	    }
+	}
+
 
 	public void dibujar(Graphics2D g2) {
 

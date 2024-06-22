@@ -1,6 +1,7 @@
 package objetos;
 
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 import principal.PanelDeJuego;
@@ -11,6 +12,9 @@ public class ObjetoBase {
 	public String nombre;
 	public boolean colision = false;
 	public int xMundo, yMundo;
+	public Rectangle areaSolida = new Rectangle(0, 0, 48, 48);
+	public int areaSolidaPredeterminadaX = 0;
+	public int areaSolidaPredeterminadaY = 0;
 
 	public void dibujar(Graphics2D g2, PanelDeJuego panelDeJuego) {
 
