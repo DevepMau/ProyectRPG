@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 
 import baldosa.GestorDeBaldosas;
 import entidades.Jugador;
+import objetos.ObjetoBase;
 
 public class PanelDeJuego extends JPanel implements Runnable {
 
@@ -34,7 +35,9 @@ public class PanelDeJuego extends JPanel implements Runnable {
 	Teclado teclado = new Teclado();
 	Thread hiloDeJuego;
 	public ComprobadorDeColisiones comprobadorDeColisiones = new ComprobadorDeColisiones(this);
+	public InicializadorDeRecursos inicializadorDeRecursos = new InicializadorDeRecursos(this);
 	public Jugador jugador = new Jugador(this, teclado);
+	public ObjetoBase obj[] = new ObjetoBase[10];
 
 	// FPS
 	int FPS = 60;
@@ -47,6 +50,10 @@ public class PanelDeJuego extends JPanel implements Runnable {
 		this.addKeyListener(teclado);
 		this.setFocusable(true);
 
+	}
+	
+	public void configuracionDeJuego() {
+		inicializadorDeRecursos.establecerObjetos();;
 	}
 
 	public void iniciarHiloDeJuego() {
@@ -88,9 +95,18 @@ public class PanelDeJuego extends JPanel implements Runnable {
 		super.paintComponent(g);
 
 		Graphics2D g2 = (Graphics2D) g;
-
+		
+		//BALDOSAS
 		gestorDeBaldosas.dibujar(g2);
+		
+		//OBJETOS
+		for(int i = 0; i < obj.length; i++) {
+			if(obj[i] != null) {
+				obj[i].dibujar(g2, this);
+			}
+		}
 
+		//JUGADOR
 		jugador.dibujar(g2);
 
 		g2.dispose();

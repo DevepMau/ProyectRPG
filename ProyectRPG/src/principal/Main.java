@@ -19,6 +19,7 @@ public class Main {
 		ventana.setLocationRelativeTo(null);
 		ventana.setVisible(true);
 
+		panelDeJuego.configuracionDeJuego();
 		panelDeJuego.iniciarHiloDeJuego();
 
 	}
