@@ -1,6 +1,7 @@
 package entidades;
 
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
@@ -20,6 +21,9 @@ public class Jugador extends Entidad {
 
 		this.panelDeJuego = panelDeJuego;
 		this.teclado = teclado;
+		
+		areaSolida = new Rectangle(8, 32, 32, 40);
+		
 		setValoresPorDefecto();
 		obtenerImagenDelJugador();
 		
@@ -61,24 +65,36 @@ public class Jugador extends Entidad {
 	public void actualizar() {
 
 		if(teclado.W == true || teclado.S == true || teclado.A == true || teclado.D == true) {
-
+			
 			if(teclado.W == true) {
 				direccion = "arriba";
-				yMundial -= velocidad;
 			}
 			if(teclado.S == true) {
 				direccion = "abajo";
-				yMundial += velocidad;
 			}
 			if(teclado.A == true) {
 				direccion = "izquierda";
-				xMundial -= velocidad;
 			}
 			if(teclado.D == true) {
 				direccion = "derecha";
-				xMundial += velocidad;
 			}
+			
+			//CHECK TILE COLLISION
+			colisionActivada = false;
+			panelDeJuego.comprobadorDeColisiones.comprobarBaldosa(this);;
 
+			
+			//IF COLLISION IS FALSE, PLAYER CAN MOVE
+			if(colisionActivada == false) {
+				
+				switch(direccion) {
+				case "arriba": yMundial -= velocidad; break;
+				case "abajo": yMundial += velocidad; break;
+				case "izquierda": xMundial -= velocidad; break;
+				case "derecha": xMundial += velocidad; break;
+				}
+			}
+			
 			contadorDeSprites++;
 			if(contadorDeSprites > 10) {
 				if(numeroDeSprite == 1) {
@@ -95,7 +111,7 @@ public class Jugador extends Entidad {
 				}
 				contadorDeSprites = 0;
 			}
-
+			
 		}
 		else {
 			switch(direccion) {

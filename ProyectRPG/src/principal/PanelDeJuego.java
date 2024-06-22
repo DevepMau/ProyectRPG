@@ -30,10 +30,10 @@ public class PanelDeJuego extends JPanel implements Runnable {
 	public final int anchoMundo = tamañoDeBaldosa * maxColDeMundo;
 	public final int altoMundo = tamañoDeBaldosa * maxFilaDeMundo;
 
-	GestorDeBaldosas gestorDeTiles = new GestorDeBaldosas(this);
+	GestorDeBaldosas gestorDeBaldosas = new GestorDeBaldosas(this);
 	Teclado teclado = new Teclado();
 	Thread hiloDeJuego;
-	
+	public ComprobadorDeColisiones comprobadorDeColisiones = new ComprobadorDeColisiones(this);
 	public Jugador jugador = new Jugador(this, teclado);
 
 	// FPS
@@ -89,7 +89,7 @@ public class PanelDeJuego extends JPanel implements Runnable {
 
 		Graphics2D g2 = (Graphics2D) g;
 
-		gestorDeTiles.dibujar(g2);
+		gestorDeBaldosas.dibujar(g2);
 
 		jugador.dibujar(g2);
 

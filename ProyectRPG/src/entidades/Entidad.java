@@ -1,5 +1,6 @@
 package entidades;
 
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 public class Entidad {
@@ -12,5 +13,8 @@ public class Entidad {
 
 	public int contadorDeSprites = 0;
 	public int numeroDeSprite = 2;
+	
+	public Rectangle areaSolida;
+	public boolean colisionActivada = false;
 
 }

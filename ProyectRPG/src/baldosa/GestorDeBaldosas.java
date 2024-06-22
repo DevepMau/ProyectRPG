@@ -13,8 +13,8 @@ import principal.PanelDeJuego;
 public class GestorDeBaldosas {
 
 	PanelDeJuego panelDeJuego;
-	Baldosa[] baldosa;
-	int mapaDeBaldosas[][];
+	public Baldosa[] baldosa;
+	public int mapaDeBaldosas[][];
 
 	public GestorDeBaldosas(PanelDeJuego panelDeJuego) {
 
@@ -34,9 +34,11 @@ public class GestorDeBaldosas {
 
 			baldosa[1] = new Baldosa();
 			baldosa[1].imagen = ImageIO.read(getClass().getResourceAsStream("/baldosas/tiles_water.png"));
+			baldosa[1].colision = true;
 
 			baldosa[2] = new Baldosa();
 			baldosa[2].imagen = ImageIO.read(getClass().getResourceAsStream("/baldosas/tiles_brick.png"));
+			baldosa[2].colision = true;
 
 		}catch(IOException e) {
 			e.printStackTrace();
