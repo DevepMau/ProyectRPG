@@ -31,11 +31,16 @@ public class PanelDeJuego extends JPanel implements Runnable {
 	public final int anchoMundo = tamañoDeBaldosa * maxColDeMundo;
 	public final int altoMundo = tamañoDeBaldosa * maxFilaDeMundo;
 
+	//SISTEMA
 	GestorDeBaldosas gestorDeBaldosas = new GestorDeBaldosas(this);
 	Teclado teclado = new Teclado();
 	Thread hiloDeJuego;
+	Sonido musica = new Sonido();
+	Sonido se = new Sonido();
 	public ComprobadorDeColisiones comprobadorDeColisiones = new ComprobadorDeColisiones(this);
 	public InicializadorDeRecursos inicializadorDeRecursos = new InicializadorDeRecursos(this);
+	
+	//ENTIDADES Y OBJETOS
 	public Jugador jugador = new Jugador(this, teclado);
 	public ObjetoBase obj[] = new ObjetoBase[10];
 
@@ -53,12 +58,33 @@ public class PanelDeJuego extends JPanel implements Runnable {
 	}
 	
 	public void configuracionDeJuego() {
-		inicializadorDeRecursos.establecerObjetos();;
+		inicializadorDeRecursos.establecerObjetos();
 	}
 
 	public void iniciarHiloDeJuego() {
 		hiloDeJuego = new Thread(this);
 		hiloDeJuego.start();
+
+	}
+	
+	public void reproducirMusica(int i) {
+
+		musica.cargarArchivo(i);
+		musica.reproducir();
+		musica.repetir();
+
+	}
+
+	public void detenerMusica() {
+
+		musica.detener();
+
+	}
+
+	public void ReproducirSE(int i) {
+
+		se.cargarArchivo(i);
+		se.reproducir();
 
 	}
 

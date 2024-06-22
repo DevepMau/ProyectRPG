@@ -147,6 +147,7 @@ public class Jugador extends Entidad {
 	        switch (nombreObjeto) {
 	            case "Llave":
 	            	if(panelDeJuego.obj[i].colision == true) {
+	            		panelDeJuego.ReproducirSE(0);
 	            		panelDeJuego.obj[i] = null;
 	            	} 
 	                break;
