@@ -12,10 +12,10 @@ public class ComprobadorDeColisiones {
 
 	public void comprobarBaldosa(Entidad entidad) {
 
-		int entidadIzquierdaX = entidad.xMundial + entidad.areaSolida.x;
-		int entidadDerechaX = entidad.xMundial + entidad.areaSolida.x + entidad.areaSolida.width;
-		int entidadArribaY = entidad.yMundial + entidad.areaSolida.y;
-		int entidadAbajoY = entidad.yMundial + entidad.areaSolida.y + entidad.areaSolida.height;
+		int entidadIzquierdaX = entidad.xMundo + entidad.areaSolida.x;
+		int entidadDerechaX = entidad.xMundo + entidad.areaSolida.x + entidad.areaSolida.width;
+		int entidadArribaY = entidad.yMundo + entidad.areaSolida.y;
+		int entidadAbajoY = entidad.yMundo + entidad.areaSolida.y + entidad.areaSolida.height;
 
 		int columnaIzquierda = entidadIzquierdaX / panelDeJuego.tamañoDeBaldosa;
 		int columnaDerecha = entidadDerechaX / panelDeJuego.tamañoDeBaldosa;

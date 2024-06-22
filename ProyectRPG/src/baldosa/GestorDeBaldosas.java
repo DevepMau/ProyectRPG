@@ -92,13 +92,13 @@ public class GestorDeBaldosas {
 
 			int xMundo = colDeMundo * panelDeJuego.tamañoDeBaldosa;
 			int yMundo = filaDeMundo * panelDeJuego.tamañoDeBaldosa;
-			int xPantalla = xMundo - panelDeJuego.jugador.xMundial + panelDeJuego.jugador.xPantalla;
-			int yPantalla = yMundo - panelDeJuego.jugador.yMundial + panelDeJuego.jugador.yPantalla;
+			int xPantalla = xMundo - panelDeJuego.jugador.xMundo + panelDeJuego.jugador.xPantalla;
+			int yPantalla = yMundo - panelDeJuego.jugador.yMundo + panelDeJuego.jugador.yPantalla;
 
-			if(xMundo + panelDeJuego.tamañoDeBaldosa > panelDeJuego.jugador.xMundial - panelDeJuego.jugador.xPantalla &&
-			   xMundo - panelDeJuego.tamañoDeBaldosa < panelDeJuego.jugador.xMundial + panelDeJuego.jugador.xPantalla &&
-			   yMundo + panelDeJuego.tamañoDeBaldosa > panelDeJuego.jugador.yMundial - panelDeJuego.jugador.yPantalla &&
-			   yMundo - (panelDeJuego.tamañoDeBaldosa + (panelDeJuego.tamañoDeBaldosa/2)) < panelDeJuego.jugador.yMundial + panelDeJuego.jugador.yPantalla) {
+			if(xMundo + panelDeJuego.tamañoDeBaldosa > panelDeJuego.jugador.xMundo - panelDeJuego.jugador.xPantalla &&
+			   xMundo - panelDeJuego.tamañoDeBaldosa < panelDeJuego.jugador.xMundo + panelDeJuego.jugador.xPantalla &&
+			   yMundo + panelDeJuego.tamañoDeBaldosa > panelDeJuego.jugador.yMundo - panelDeJuego.jugador.yPantalla &&
+			   yMundo - (panelDeJuego.tamañoDeBaldosa + (panelDeJuego.tamañoDeBaldosa/2)) < panelDeJuego.jugador.yMundo + panelDeJuego.jugador.yPantalla) {
 
 				g2.drawImage(baldosa[numeroDeBaldosa].imagen, xPantalla, yPantalla, panelDeJuego.tamañoDeBaldosa, panelDeJuego.tamañoDeBaldosa, null);
 

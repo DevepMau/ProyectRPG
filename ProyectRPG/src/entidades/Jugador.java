@@ -35,8 +35,8 @@ public class Jugador extends Entidad {
 
 	public void setValoresPorDefecto() {
 
-		xMundial = panelDeJuego.tamañoDeBaldosa * 5;
-		yMundial = panelDeJuego.tamañoDeBaldosa * 5;
+		xMundo = panelDeJuego.tamañoDeBaldosa * 5;
+		yMundo = panelDeJuego.tamañoDeBaldosa * 5;
 		velocidad = 3;
 		direccion = "abajo";
 	}
@@ -88,10 +88,10 @@ public class Jugador extends Entidad {
 			if(colisionActivada == false) {
 				
 				switch(direccion) {
-				case "arriba": yMundial -= velocidad; break;
-				case "abajo": yMundial += velocidad; break;
-				case "izquierda": xMundial -= velocidad; break;
-				case "derecha": xMundial += velocidad; break;
+				case "arriba": yMundo -= velocidad; break;
+				case "abajo": yMundo += velocidad; break;
+				case "izquierda": xMundo -= velocidad; break;
+				case "derecha": xMundo += velocidad; break;
 				}
 			}
 			
