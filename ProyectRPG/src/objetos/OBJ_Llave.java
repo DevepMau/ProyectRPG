@@ -4,13 +4,20 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-public class OBJ_Llave extends ObjetoBase {
+import principal.PanelDeJuego;
 
-	public OBJ_Llave() {
+public class OBJ_Llave extends ObjetoBase {
+	
+	PanelDeJuego pdj;
+
+	public OBJ_Llave(PanelDeJuego pdj) {
+		
+		this.pdj = pdj;
 
 		nombre = "Llave";
 		try {
 			imagen = ImageIO.read(getClass().getResourceAsStream("/objetos/object_key.png"));
+			uTool.escalarImagen(imagen, pdj.tamañoDeBaldosa, pdj.tamañoDeBaldosa);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

@@ -9,59 +9,70 @@ import javax.imageio.ImageIO;
 
 import principal.PanelDeJuego;
 import principal.Teclado;
+import principal.Utilidades;
 
 public class Jugador extends Entidad {
 
-	PanelDeJuego panelDeJuego;
+	PanelDeJuego pdj;
 	Teclado teclado;
 	public final int xPantalla;
 	public final int yPantalla;
 
-	public Jugador(PanelDeJuego panelDeJuego, Teclado teclado) {
+	public Jugador(PanelDeJuego pdj, Teclado teclado) {
 
-		this.panelDeJuego = panelDeJuego;
+		this.pdj = pdj;
 		this.teclado = teclado;
 		
 		areaSolida = new Rectangle(8, 32, 32, 40);
-		areaSolidaPredeterminadaX = areaSolida.x;
-		areaSolidaPredeterminadaY = areaSolida.y;
+		areaSolidaDefaultX = areaSolida.x;
+		areaSolidaDefaultY = areaSolida.y;
 		
 		setValoresPorDefecto();
 		obtenerImagenDelJugador();
 		
-		xPantalla = panelDeJuego.anchoDePantalla / 2 - (panelDeJuego.tamañoDeBaldosa/2);
-		yPantalla = panelDeJuego.altoDePantalla / 2 - ((panelDeJuego.tamañoDeBaldosa + (panelDeJuego.tamañoDeBaldosa/2)) /2);
+		xPantalla = pdj.anchoDePantalla / 2 - (pdj.tamañoDeBaldosa/2);
+		yPantalla = pdj.altoDePantalla / 2 - ((pdj.tamañoDeBaldosa + (pdj.tamañoDeBaldosa/2)) /2);
 		
 
 	}
 
 	public void setValoresPorDefecto() {
 
-		xMundo = panelDeJuego.tamañoDeBaldosa * 5;
-		yMundo = panelDeJuego.tamañoDeBaldosa * 5;
+		xMundo = pdj.tamañoDeBaldosa * 5;
+		yMundo = pdj.tamañoDeBaldosa * 5;
 		velocidad = 3;
 		direccion = "abajo";
 	}
 
 	public void obtenerImagenDelJugador() {
+		
+		abajo1 = configurar("mc_down_1");
+		abajo2 = configurar("mc_down_2");
+		abajo3 = configurar("mc_down_3");
+		abajo4 = configurar("mc_down_4");
+		izquierda1 = configurar("mc_left_1");
+		izquierda2 = configurar("mc_left_2");
+		derecha1 = configurar("mc_right_1");
+		derecha2 = configurar("mc_right_2");
+		arriba1 = configurar("mc_up_1");
+		arriba2 = configurar("mc_up_2");
+		arriba3 = configurar("mc_up_3");
+		arriba4 = configurar("mc_up_4");
+
+	}
+
+	public BufferedImage configurar(String imageName) {
+
+		Utilidades uTool = new Utilidades();
+		BufferedImage imagen = null;
 
 		try {
-			abajo1 = ImageIO.read(getClass().getResourceAsStream("/jugador/mc_down_1.png"));
-			abajo2 = ImageIO.read(getClass().getResourceAsStream("/jugador/mc_down_2.png"));
-			abajo3 = ImageIO.read(getClass().getResourceAsStream("/jugador/mc_down_3.png"));
-			abajo4 = ImageIO.read(getClass().getResourceAsStream("/jugador/mc_down_4.png"));
-			izquierda1 = ImageIO.read(getClass().getResourceAsStream("/jugador/mc_left_1.png"));
-			izquierda2 = ImageIO.read(getClass().getResourceAsStream("/jugador/mc_left_2.png"));
-			derecha1 = ImageIO.read(getClass().getResourceAsStream("/jugador/mc_right_1.png"));
-			derecha2 = ImageIO.read(getClass().getResourceAsStream("/jugador/mc_right_2.png"));
-			arriba1 = ImageIO.read(getClass().getResourceAsStream("/jugador/mc_up_1.png"));
-			arriba2 = ImageIO.read(getClass().getResourceAsStream("/jugador/mc_up_2.png"));
-			arriba3 = ImageIO.read(getClass().getResourceAsStream("/jugador/mc_up_3.png"));
-			arriba4 = ImageIO.read(getClass().getResourceAsStream("/jugador/mc_up_4.png"));
-
-		} catch(IOException e){
+			imagen = ImageIO.read(getClass().getResourceAsStream("/jugador/"+imageName+".png"));
+			imagen = uTool.escalarImagen(imagen, pdj.tamañoDeBaldosa, pdj.tamañoDeBaldosa+(pdj.tamañoDeBaldosa/2));
+		}catch(IOException e) {
 			e.printStackTrace();
 		}
+		return imagen;
 	}
 
 	public void actualizar() {
@@ -83,10 +94,10 @@ public class Jugador extends Entidad {
 			
 			//COMPROBAR COLISIONES CON LAS BALDOSAS
 			colisionActivada = false;
-			panelDeJuego.comprobadorDeColisiones.verificarBaldosa(this);
+			pdj.comprobadorDeColisiones.verificarBaldosa(this);
 			
 			//COMPROBAR COLISIONES CON OBJETOS
-			int objIndex = panelDeJuego.comprobadorDeColisiones.verificarObjeto(this, true);
+			int objIndex = pdj.comprobadorDeColisiones.verificarObjeto(this, true);
 			recogerObjeto(objIndex);
 
 			
@@ -142,13 +153,13 @@ public class Jugador extends Entidad {
 
 	    if (i != 999) {
 
-	        String nombreObjeto = panelDeJuego.obj[i].nombre;
+	        String nombreObjeto = pdj.obj[i].nombre;
 
 	        switch (nombreObjeto) {
 	            case "Llave":
-	            	if(panelDeJuego.obj[i].colision == true) {
-	            		panelDeJuego.ReproducirSE(0);
-	            		panelDeJuego.obj[i] = null;
+	            	if(pdj.obj[i].colision == true) {
+	            		pdj.ReproducirSE(0);
+	            		pdj.obj[i] = null;
 	            	} 
 	                break;
 	        }
@@ -218,8 +229,7 @@ public class Jugador extends Entidad {
 			}
 			break;
 		}
-		g2.drawImage(imagen, xPantalla, yPantalla, panelDeJuego.tamañoDeBaldosa, (panelDeJuego.tamañoDeBaldosa + (panelDeJuego.tamañoDeBaldosa/2)), null);
-
+		g2.drawImage(imagen, xPantalla, yPantalla, null);
 
 	}
 

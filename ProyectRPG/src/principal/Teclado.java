@@ -5,7 +5,14 @@ import java.awt.event.KeyListener;
 
 public class Teclado implements KeyListener {
 
+	PanelDeJuego pdj;
 	public boolean W, S, A, D;
+	//DEBUG
+	boolean comprobarTiempoDeDibujado = false;
+	
+	public Teclado(PanelDeJuego pdj) {
+		this.pdj = pdj;
+	}
 
 	@Override
 	public void keyTyped(KeyEvent e) {	
@@ -26,6 +33,22 @@ public class Teclado implements KeyListener {
 		}
 		if(codigo == KeyEvent.VK_D) {
 			D = true;
+		}
+		if(codigo == KeyEvent.VK_P) {
+			if(pdj.estadoDeJuego == pdj.modoJuego) {
+				pdj.estadoDeJuego = pdj.modoPausa;
+			}
+			else if(pdj.estadoDeJuego == pdj.modoPausa) {
+				pdj.estadoDeJuego = pdj.modoJuego;
+			}
+		}
+		if(codigo == KeyEvent.VK_T) {
+			if(comprobarTiempoDeDibujado == false) {
+				comprobarTiempoDeDibujado = true;
+			}
+			else if(comprobarTiempoDeDibujado == true) {
+				comprobarTiempoDeDibujado = false;
+			}
 		}
 
 	}

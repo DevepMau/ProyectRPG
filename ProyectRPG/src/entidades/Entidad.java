@@ -15,7 +15,7 @@ public class Entidad {
 	public int numeroDeSprite = 2;
 	
 	public Rectangle areaSolida;
-	public int areaSolidaPredeterminadaX, areaSolidaPredeterminadaY;
+	public int areaSolidaDefaultX, areaSolidaDefaultY;
 	public boolean colisionActivada = false;
 
 }

@@ -11,16 +11,16 @@ public class Main {
 		ventana.setResizable(false);
 		ventana.setTitle("Juego 2D");
 
-		PanelDeJuego panelDeJuego = new PanelDeJuego();
-		ventana.add(panelDeJuego);
+		PanelDeJuego pdj = new PanelDeJuego();
+		ventana.add(pdj);
 
 		ventana.pack();
 
 		ventana.setLocationRelativeTo(null);
 		ventana.setVisible(true);
 
-		panelDeJuego.configuracionDeJuego();
-		panelDeJuego.iniciarHiloDeJuego();
+		pdj.configuracionDeJuego();
+		pdj.iniciarHiloDeJuego();
 
 	}
 

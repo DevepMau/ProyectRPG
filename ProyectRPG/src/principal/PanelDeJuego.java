@@ -33,17 +33,23 @@ public class PanelDeJuego extends JPanel implements Runnable {
 
 	//SISTEMA
 	GestorDeBaldosas gestorDeBaldosas = new GestorDeBaldosas(this);
-	Teclado teclado = new Teclado();
-	Thread hiloDeJuego;
+	Teclado teclado = new Teclado(this);
 	Sonido musica = new Sonido();
 	Sonido se = new Sonido();
 	public ComprobadorDeColisiones comprobadorDeColisiones = new ComprobadorDeColisiones(this);
 	public InicializadorDeRecursos inicializadorDeRecursos = new InicializadorDeRecursos(this);
+	public UI ui = new UI(this);
+	Thread hiloDeJuego;
 	
 	//ENTIDADES Y OBJETOS
 	public Jugador jugador = new Jugador(this, teclado);
 	public ObjetoBase obj[] = new ObjetoBase[10];
 
+	//ESTADO DE JUEGO
+	public int estadoDeJuego;
+	public final int modoJuego = 1;
+	public final int modoPausa = 2;
+	
 	// FPS
 	int FPS = 60;
 
@@ -59,6 +65,7 @@ public class PanelDeJuego extends JPanel implements Runnable {
 	
 	public void configuracionDeJuego() {
 		inicializadorDeRecursos.establecerObjetos();
+		estadoDeJuego = modoJuego;
 	}
 
 	public void iniciarHiloDeJuego() {
@@ -113,14 +120,24 @@ public class PanelDeJuego extends JPanel implements Runnable {
 
 	public void actualizar() {
 
-		jugador.actualizar();
-
+		if(estadoDeJuego == modoJuego) {
+			jugador.actualizar();
+		}
+		if(estadoDeJuego == modoPausa) {
+			
+		}
 	}
 
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 
 		Graphics2D g2 = (Graphics2D) g;
+		
+		//DEBUG
+		long drawStart = 0;
+		if(teclado.comprobarTiempoDeDibujado == true) {
+			drawStart = System.nanoTime();
+		}
 		
 		//BALDOSAS
 		gestorDeBaldosas.dibujar(g2);
@@ -134,6 +151,17 @@ public class PanelDeJuego extends JPanel implements Runnable {
 
 		//JUGADOR
 		jugador.dibujar(g2);
+		
+		//UI
+		ui.dibujar(g2);
+
+		//DEBUG
+		if(teclado.comprobarTiempoDeDibujado == true) {
+			long drawEnd = System.nanoTime();
+			long passed = drawEnd - drawStart;
+			g2.setColor(Color.white);
+			g2.drawString("Draw Time: " + passed, 10, 400);
+		}
 
 		g2.dispose();
 
