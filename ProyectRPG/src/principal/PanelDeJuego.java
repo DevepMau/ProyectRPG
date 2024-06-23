@@ -8,6 +8,7 @@ import java.awt.Graphics2D;
 import javax.swing.JPanel;
 
 import baldosa.GestorDeBaldosas;
+import entidades.Entidad;
 import entidades.Jugador;
 import objetos.ObjetoBase;
 
@@ -44,6 +45,7 @@ public class PanelDeJuego extends JPanel implements Runnable {
 	//ENTIDADES Y OBJETOS
 	public Jugador jugador = new Jugador(this, teclado);
 	public ObjetoBase obj[] = new ObjetoBase[10];
+	public Entidad npc[] = new Entidad[10];
 
 	//ESTADO DE JUEGO
 	public int estadoDeJuego;
@@ -65,6 +67,7 @@ public class PanelDeJuego extends JPanel implements Runnable {
 	
 	public void configuracionDeJuego() {
 		inicializadorDeRecursos.establecerObjetos();
+		inicializadorDeRecursos.establecerNPCs();
 		estadoDeJuego = modoJuego;
 	}
 
@@ -121,7 +124,16 @@ public class PanelDeJuego extends JPanel implements Runnable {
 	public void actualizar() {
 
 		if(estadoDeJuego == modoJuego) {
+			
+			//JUGADR
 			jugador.actualizar();
+			
+			//NPC
+			for(int i = 0; i < npc.length; i++) {
+				if(npc[i] != null) {
+					npc[i].actualizar();
+				}
+			}
 		}
 		if(estadoDeJuego == modoPausa) {
 			
@@ -149,8 +161,19 @@ public class PanelDeJuego extends JPanel implements Runnable {
 			}
 		}
 
-		//JUGADOR
-		jugador.dibujar(g2);
+		//JUGADOR Y NPC
+		for(int i = 0; i < npc.length; i++) {
+			if(npc[i] != null) {
+				if(npc[i].yMundo < jugador.yMundo) {
+					npc[i].dibujar(g2);
+					jugador.dibujar(g2);
+				}
+				else {
+					jugador.dibujar(g2);
+					npc[i].dibujar(g2);
+				}	
+			}
+		}
 		
 		//UI
 		ui.dibujar(g2);

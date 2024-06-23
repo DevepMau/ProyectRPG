@@ -1,5 +1,6 @@
 package principal;
 
+import entidades.NPC_Niña;
 import objetos.OBJ_Llave;
 
 public class InicializadorDeRecursos {
@@ -17,6 +18,13 @@ public class InicializadorDeRecursos {
 		pdj.obj[0].yMundo = 6 * pdj.tamañoDeBaldosa;
 		pdj.obj[0].colision = true;
 
+	}
+	
+	public void establecerNPCs() {
+
+		pdj.npc[0] = new NPC_Niña(pdj);
+		pdj.npc[0].xMundo = pdj.tamañoDeBaldosa*10;
+		pdj.npc[0].yMundo = pdj.tamañoDeBaldosa*8;
 
 	}
 

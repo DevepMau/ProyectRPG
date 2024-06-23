@@ -13,14 +13,13 @@ import principal.Utilidades;
 
 public class Jugador extends Entidad {
 
-	PanelDeJuego pdj;
 	Teclado teclado;
 	public final int xPantalla;
 	public final int yPantalla;
 
 	public Jugador(PanelDeJuego pdj, Teclado teclado) {
 
-		this.pdj = pdj;
+		super(pdj);
 		this.teclado = teclado;
 		
 		areaSolida = new Rectangle(8, 32, 32, 40);
@@ -46,33 +45,19 @@ public class Jugador extends Entidad {
 
 	public void obtenerImagenDelJugador() {
 		
-		abajo1 = configurar("mc_down_1");
-		abajo2 = configurar("mc_down_2");
-		abajo3 = configurar("mc_down_3");
-		abajo4 = configurar("mc_down_4");
-		izquierda1 = configurar("mc_left_1");
-		izquierda2 = configurar("mc_left_2");
-		derecha1 = configurar("mc_right_1");
-		derecha2 = configurar("mc_right_2");
-		arriba1 = configurar("mc_up_1");
-		arriba2 = configurar("mc_up_2");
-		arriba3 = configurar("mc_up_3");
-		arriba4 = configurar("mc_up_4");
+		abajo1 = configurarImagen("/jugador/mc_down_1");
+		abajo2 = configurarImagen("/jugador/mc_down_2");
+		abajo3 = configurarImagen("/jugador/mc_down_3");
+		abajo4 = configurarImagen("/jugador/mc_down_4");
+		izquierda1 = configurarImagen("/jugador/mc_left_1");
+		izquierda2 = configurarImagen("/jugador/mc_left_2");
+		derecha1 = configurarImagen("/jugador/mc_right_1");
+		derecha2 = configurarImagen("/jugador/mc_right_2");
+		arriba1 = configurarImagen("/jugador/mc_up_1");
+		arriba2 = configurarImagen("/jugador/mc_up_2");
+		arriba3 = configurarImagen("/jugador/mc_up_3");
+		arriba4 = configurarImagen("/jugador/mc_up_4");
 
-	}
-
-	public BufferedImage configurar(String imageName) {
-
-		Utilidades uTool = new Utilidades();
-		BufferedImage imagen = null;
-
-		try {
-			imagen = ImageIO.read(getClass().getResourceAsStream("/jugador/"+imageName+".png"));
-			imagen = uTool.escalarImagen(imagen, pdj.tamañoDeBaldosa, pdj.tamañoDeBaldosa+(pdj.tamañoDeBaldosa/2));
-		}catch(IOException e) {
-			e.printStackTrace();
-		}
-		return imagen;
 	}
 
 	public void actualizar() {
