@@ -39,7 +39,10 @@ public class Entidad {
 
 	    establecerAccion();
 	    colisionActivada = false;
+	    
 	    pdj.comprobadorDeColisiones.verificarBaldosa(this);
+	    pdj.comprobadorDeColisiones.verificarObjeto(this, false);
+	    pdj.comprobadorDeColisiones.verificarJugador(this);
 
 	    // SI LA COLISIÓN ES FALSA, EL JUGADOR PUEDE MOVERSE
 	    if (colisionActivada == false) {

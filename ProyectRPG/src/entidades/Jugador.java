@@ -84,7 +84,10 @@ public class Jugador extends Entidad {
 			//COMPROBAR COLISIONES CON OBJETOS
 			int objIndex = pdj.comprobadorDeColisiones.verificarObjeto(this, true);
 			recogerObjeto(objIndex);
-
+			
+			//COMPROBAR COLISION CON NPC
+			int npcIndex = pdj.comprobadorDeColisiones.verificarEntidad(this, pdj.npc);
+			interactuarConNPC(npcIndex);
 			
 			//SI LA COLISION ESTA DESACTIVADA, EL JUGADOR SE PODRA MOVER
 			if(colisionActivada == false) {
@@ -149,6 +152,13 @@ public class Jugador extends Entidad {
 	                break;
 	        }
 	    }
+	}
+	
+	public void interactuarConNPC(int i) {
+
+		if(i != 999) {
+			System.out.println("Estas chocando con un NPC!");
+		}
 	}
 
 

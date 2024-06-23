@@ -153,6 +153,108 @@ public class ComprobadorDeColisiones {
 	    return indice;
 
 	}
+	
+	public int verificarEntidad(Entidad entidad, Entidad[] objetivo) {
+
+		int indice = 999;
+
+		for (int i = 0; i < objetivo.length; i++) {
+
+			if (objetivo[i] != null) {
+
+				// Obtener la posicion del area solida de la entidad
+				entidad.areaSolida.x = entidad.xMundo + entidad.areaSolida.x;
+				entidad.areaSolida.y = entidad.yMundo + entidad.areaSolida.y;
+				// Obtener la posicion del area solida del objeto
+				objetivo[i].areaSolida.x = objetivo[i].xMundo + objetivo[i].areaSolida.x;
+				objetivo[i].areaSolida.y = objetivo[i].yMundo + objetivo[i].areaSolida.y;
+
+				switch (entidad.direccion) {
+				case "arriba":
+					entidad.areaSolida.y -= entidad.velocidad;
+					if (entidad.areaSolida.intersects(objetivo[i].areaSolida)) {
+						entidad.colisionActivada = true;
+						indice = i;
+					}
+					break;
+				case "abajo":
+					entidad.areaSolida.y += entidad.velocidad;
+					if (entidad.areaSolida.intersects(objetivo[i].areaSolida)) {
+						entidad.colisionActivada = true;
+						indice = i;
+					}
+					break;
+				case "izquierda":
+					entidad.areaSolida.x -= entidad.velocidad;
+					if (entidad.areaSolida.intersects(objetivo[i].areaSolida)) {
+						entidad.colisionActivada = true;
+						indice = i;
+					}
+					break;
+				case "derecha":
+					entidad.areaSolida.x += entidad.velocidad;
+					if (entidad.areaSolida.intersects(objetivo[i].areaSolida)) {
+						entidad.colisionActivada = true;
+						indice = i;
+					}
+					break;
+				}
+
+				entidad.areaSolida.x = entidad.areaSolidaDefaultX;
+				entidad.areaSolida.y = entidad.areaSolidaDefaultY;
+				objetivo[i].areaSolida.x = objetivo[i].areaSolidaDefaultX;
+				objetivo[i].areaSolida.y = objetivo[i].areaSolidaDefaultY;
+
+			}
+
+		}
+
+		return indice;
+	}
+
+	public void verificarJugador(Entidad entidad) {
+
+		// Obtener la posicion del area solida de la entidad
+		entidad.areaSolida.x = entidad.xMundo + entidad.areaSolida.x;
+		entidad.areaSolida.y = entidad.yMundo + entidad.areaSolida.y;
+		// Obtener la posicion del area solida del objeto
+		pdj.jugador.areaSolida.x = pdj.jugador.xMundo + pdj.jugador.areaSolida.x;
+		pdj.jugador.areaSolida.y = pdj.jugador.yMundo + pdj.jugador.areaSolida.y;
+
+		switch (entidad.direccion) {
+		case "arriba":
+			entidad.areaSolida.y -= entidad.velocidad;
+			if (entidad.areaSolida.intersects(pdj.jugador.areaSolida)) {
+				entidad.colisionActivada = true;
+			}
+			break;
+		case "abajo":
+			entidad.areaSolida.y += entidad.velocidad;
+			if (entidad.areaSolida.intersects(pdj.jugador.areaSolida)) {
+				entidad.colisionActivada = true;
+			}
+			break;
+		case "izquierda":
+			entidad.areaSolida.x -= entidad.velocidad;
+			if (entidad.areaSolida.intersects(pdj.jugador.areaSolida)) {
+				entidad.colisionActivada = true;
+			}
+			break;
+		case "derecha":
+			entidad.areaSolida.x += entidad.velocidad;
+			if (entidad.areaSolida.intersects(pdj.jugador.areaSolida)) {
+				entidad.colisionActivada = true;
+			}
+			break;
+		}
+
+		entidad.areaSolida.x = entidad.areaSolidaDefaultX;
+		entidad.areaSolida.y = entidad.areaSolidaDefaultY;
+		pdj.jugador.areaSolida.x = pdj.jugador.areaSolidaDefaultX;
+		pdj.jugador.areaSolida.y = pdj.jugador.areaSolidaDefaultY;
+
+	}
+
 
 
 }
