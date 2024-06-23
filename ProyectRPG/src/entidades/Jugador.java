@@ -157,7 +157,8 @@ public class Jugador extends Entidad {
 	public void interactuarConNPC(int i) {
 
 		if(i != 999) {
-			System.out.println("Estas chocando con un NPC!");
+			pdj.estadoDeJuego = pdj.modoDialogo;
+			pdj.npc[0].hablar();
 		}
 	}
 

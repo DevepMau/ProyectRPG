@@ -51,6 +51,7 @@ public class PanelDeJuego extends JPanel implements Runnable {
 	public int estadoDeJuego;
 	public final int modoJuego = 1;
 	public final int modoPausa = 2;
+	public final int modoDialogo = 3;
 	
 	// FPS
 	int FPS = 60;

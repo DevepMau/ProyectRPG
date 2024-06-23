@@ -26,6 +26,8 @@ public class Entidad {
 	public boolean colisionActivada = false;
 	
 	public int contadorDeAccion = 0;
+	String dialogos[] = new String[70];
+	int dialogoIndice = 0;
 	
 	PanelDeJuego pdj;
 	
@@ -34,6 +36,8 @@ public class Entidad {
 	}
 	
 	public void establecerAccion() {}
+	
+	public void hablar() {}
 	
 	public void actualizar() {
 
