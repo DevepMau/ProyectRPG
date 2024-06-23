@@ -3,8 +3,11 @@ package principal;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.FontFormatException;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.io.InputStream;
 
 import objetos.OBJ_Llave;
 
@@ -12,7 +15,7 @@ public class UI {
 
 	PanelDeJuego pdj;
 	Graphics2D g2;
-	Font arial_40;
+	Font maruMonica;
 	public boolean mensajeActivo = false;
 	public String mensaje = "";
 	int contadorMensaje = 0;
@@ -22,8 +25,15 @@ public class UI {
 	public UI(PanelDeJuego pdj) {
 
 		this.pdj = pdj;
-		arial_40 = new Font("Arial", Font.PLAIN, 40);
-
+		
+		try {
+			InputStream is = getClass().getResourceAsStream("/fuentes/x12y16pxMaruMonica.ttf");
+			maruMonica = Font.createFont(Font.TRUETYPE_FONT, is);
+		} catch (FontFormatException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void mostrarMensaje(String texto) {
@@ -37,7 +47,7 @@ public class UI {
 
 		this.g2 = g2;
 
-		g2.setFont(arial_40);
+		g2.setFont(maruMonica);
 		g2.setColor(Color.white);
 
 		//MODO JUEGO
@@ -78,7 +88,11 @@ public class UI {
 		g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 32F));
 		x += pdj.tamañoDeBaldosa;
 		y += pdj.tamañoDeBaldosa;
-		g2.drawString(dialogoActual, x, y);
+
+		for(String line : dialogoActual.split("\n")) {
+			g2.drawString(line, x, y);
+			y += 40;
+		}
 
 	}
 

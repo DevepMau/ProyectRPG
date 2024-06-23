@@ -157,8 +157,10 @@ public class Jugador extends Entidad {
 	public void interactuarConNPC(int i) {
 
 		if(i != 999) {
-			pdj.estadoDeJuego = pdj.modoDialogo;
-			pdj.npc[0].hablar();
+			if(pdj.teclado.ENTER == true) {
+				pdj.estadoDeJuego = pdj.modoDialogo;
+				pdj.npc[0].hablar();
+			}
 		}
 	}
 

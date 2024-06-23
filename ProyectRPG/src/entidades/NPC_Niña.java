@@ -40,7 +40,7 @@ public class NPC_Niña extends Entidad {
 	
 	public void obtenerDialogo() {
 		dialogos[0] = "primer ejempo de dialogo";
-		dialogos[1] = "segundo ejempo de dialogo";
+		dialogos[1] = "segundo ejempo de dialogo mas largo \npara probar el el salto de linea";
 		dialogos[2] = "tercer ejempo de dialogo";
 		dialogos[3] = "cuarto ejempo de dialogo";
 	}
@@ -75,27 +75,7 @@ public class NPC_Niña extends Entidad {
 	
 	public void hablar() {
 
-		if(dialogos[dialogoIndice] == null) {
-			dialogoIndice = 0; 
-		}
-
-		pdj.ui.dialogoActual = dialogos[dialogoIndice];
-		dialogoIndice++;
-
-		switch(pdj.jugador.direccion) {
-		case "arriba":
-			direccion = "abajo";
-			break;
-		case "abajo":
-			direccion = "arriba";
-			break;
-		case "izquierda":
-			direccion = "derecha";
-			break;
-		case "derecha":
-			direccion = "izquierda";
-			break;
-		}
+		super.hablar();
 	}
 
 }

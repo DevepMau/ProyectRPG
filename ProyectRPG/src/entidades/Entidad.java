@@ -37,7 +37,29 @@ public class Entidad {
 	
 	public void establecerAccion() {}
 	
-	public void hablar() {}
+	public void hablar() {
+		if(dialogos[dialogoIndice] == null) {
+			dialogoIndice = 0; 
+		}
+
+		pdj.ui.dialogoActual = dialogos[dialogoIndice];
+		dialogoIndice++;
+
+		switch(pdj.jugador.direccion) {
+		case "arriba":
+			direccion = "abajo";
+			break;
+		case "abajo":
+			direccion = "arriba";
+			break;
+		case "izquierda":
+			direccion = "derecha";
+			break;
+		case "derecha":
+			direccion = "izquierda";
+			break;
+		}
+	}
 	
 	public void actualizar() {
 

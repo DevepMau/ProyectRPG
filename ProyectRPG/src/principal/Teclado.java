@@ -6,7 +6,7 @@ import java.awt.event.KeyListener;
 public class Teclado implements KeyListener {
 
 	PanelDeJuego pdj;
-	public boolean W, S, A, D;
+	public boolean W, S, A, D, ENTER;
 	//DEBUG
 	boolean comprobarTiempoDeDibujado = false;
 	
@@ -38,9 +38,10 @@ public class Teclado implements KeyListener {
 				D = true;
 			}
 			if(codigo == KeyEvent.VK_P) {
-				if(pdj.estadoDeJuego == pdj.modoJuego) {
-					pdj.estadoDeJuego = pdj.modoPausa;
-				}
+				pdj.estadoDeJuego = pdj.modoPausa;
+			}
+			if(codigo == KeyEvent.VK_ENTER) {
+				ENTER = true;
 			}
 			//MODO DEBUG
 			if(codigo == KeyEvent.VK_T) {
@@ -84,6 +85,10 @@ public class Teclado implements KeyListener {
 		if(codigo == KeyEvent.VK_D) {
 			D = false;
 		}
+		if(codigo == KeyEvent.VK_ENTER) {
+			ENTER = false;
+		}
+
 
 	}
 

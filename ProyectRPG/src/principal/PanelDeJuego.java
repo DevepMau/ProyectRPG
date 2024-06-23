@@ -34,7 +34,7 @@ public class PanelDeJuego extends JPanel implements Runnable {
 
 	//SISTEMA
 	GestorDeBaldosas gestorDeBaldosas = new GestorDeBaldosas(this);
-	Teclado teclado = new Teclado(this);
+	public Teclado teclado = new Teclado(this);
 	Sonido musica = new Sonido();
 	Sonido se = new Sonido();
 	public ComprobadorDeColisiones comprobadorDeColisiones = new ComprobadorDeColisiones(this);
